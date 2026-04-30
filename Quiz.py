@@ -62,7 +62,7 @@ class QuizApp:
 
         #container for pages
 
-        self.container = tk.frame(root, bg="#e6f2e6")
+        self.container = tk.Frame(root, bg="#e6f2e6")
 
 
 
