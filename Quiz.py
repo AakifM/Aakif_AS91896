@@ -48,9 +48,21 @@ class QuizApp:
                 "Options": ["Before humans arrived","After humans arrived","During Ice age","Recently"],
                 "answer": "After humans arrived"},
 
-            {}
+            {"Question": "Which of these animals is extinct in New Zealand?",
+                "Options": ["Kiwi","Moa","Tui","Kea"],
+                "answer": "Moa"},
 
+            {"Question": "Where did Moa lived",
+             "Options": ["Australia", "New Zealand", "Africa", "Asia"],
+             "answer": "New Zealand"},
         ]
+
+        self.score = 0
+        self.q_index = 0
+
+        #container for pages
+
+        self.container = tk.frame(root, bg="#e6f2e6")
 
 
 
