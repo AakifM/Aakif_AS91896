@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import ttk
+import tkinter
 
 #MAIN APP CLASS
 class QuizApp:
@@ -63,6 +63,14 @@ class QuizApp:
         #container for pages
 
         self.container = tk.Frame(root, bg="#e6f2e6")
+        self.container.pack(fill="both", expand=True)
+
+        self.frames = {}
+
+root = tk.Tk()
+app = QuizApp(root)
+root.mainloop()
+
 
 
 
