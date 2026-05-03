@@ -1,5 +1,7 @@
 import tkinter as tk
 import tkinter
+from dis import Instruction
+
 
 #MAIN APP CLASS
 class QuizApp:
@@ -67,6 +69,38 @@ class QuizApp:
 
         self.frames = {}
 
+        #Initialize all pages
+
+        for F in (StartPage, InstructionPage, QuizPage, ResultPage):
+            frame = F(self.container, self)
+            self.frames[F]= frame
+            frame.place(relwidth=1, relheight=1)
+
+            self.show_frame(StartPage)
+
+            def show_frame(self, page):
+                frame = self.frames[page]
+                frame.tkraise()
+
+        #---------------------
+        #START PAGE
+        #---------------------
+
+        class StartPage(tk.Frame):
+            def __init__(self, parent, app):
+                super().__init__(parent,bg="e6f2e6")
+        tk.Label(self, text="EXTINCT ANIMAL QUIZ")
+        font=("Cormorant Garamond",20,"bold")
+        bg="e6f2e6".pack(pady=10)
+
+        tk.Button(self, text="Start Quiz", bg="#2e7d32", fg="white", width=20, height=2, command=lambda: app.show_frame(InstructionPage)).pack(pady=10)
+        tk.Button(self, text="Help/Rules", bg="#2e7d32", fg="white", width=20, height=2).pack(pady=10)
+
+        tk.Label(self, text="Learn about NZ extinct animals", bg="#e6f2e6").pack(pady=20)
+
+        #---------------------
+        #INSTRUCTION PAGE
+        #---------------------
 root = tk.Tk()
 app = QuizApp(root)
 root.mainloop()
