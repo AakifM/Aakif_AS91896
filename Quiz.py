@@ -121,7 +121,7 @@ class QuizApp:
             tk.Label(self, text="."+ins, bg="#e6f2e6", font=("Arial",12)).pack(anchor="w", padx=150)
 
             tk.Button(self,text="Back", bg="#2e7d32", fg="white", width=10, command=lambda:app.show_frame("startPage")).pack(side="left",padx=80,pady=40)
-            tk.Button(self,text=
+            tk.Button(self,text="start", bg="#2e7d32", fg="white", width=10, command=lambda app.show_frame("QuizPage")).pack(side="right")
 
 
 
