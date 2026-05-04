@@ -71,12 +71,12 @@ class QuizApp:
 
         #Initialize all pages
 
-        for F in (StartPage, InstructionPage, QuizPage, ResultPage):
+        for F in ("StartPage", "InstructionPage", "QuizPage", "ResultPage"):
             frame = F(self.container, self)
             self.frames[F]= frame
             frame.place(relwidth=1, relheight=1)
 
-            self.show_frame(StartPage)
+            self.show_frame("StartPage")
 
             def show_frame(self, page):
                 frame = self.frames[page]
@@ -101,6 +101,31 @@ class QuizApp:
         #---------------------
         #INSTRUCTION PAGE
         #---------------------
+
+        class InstructionPage(tk.Frame):
+            def __init__(self, parent,app):
+                super().__init__(parent, bg="#e6f2e6")
+
+                tk.Label(self, text="INSTRUCTIONS",
+                font=("Cormorant Garamond",18,"bold"),
+                bg="#e6f2e6").pack(pady=20)
+
+            instructions=[
+                "Read each question carefully",
+                "Select the correct answer",
+                "Each correct answer= 1 point",
+                "Final score shown at the end"
+            ]
+
+        for ins in "instructions":
+            tk.Label(self, text="."+ins, bg="#e6f2e6", font=("Arial",12)).pack(anchor="w", padx=150)
+
+            tk.Button(self,text="Back", bg="#2e7d32", fg="white", width=10, command=lambda:app.show_frame("startPage")).pack(side="left",padx=80,pady=40)
+            tk.Button(self,text=
+
+
+
+
 root = tk.Tk()
 app = QuizApp(root)
 root.mainloop()
