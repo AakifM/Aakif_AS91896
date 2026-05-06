@@ -121,11 +121,36 @@ class QuizApp:
             tk.Label(self, text="."+ins, bg="#e6f2e6", font=("Arial",12)).pack(anchor="w", padx=150)
 
             tk.Button(self,text="Back", bg="#2e7d32", fg="white", width=10, command=lambda:app.show_frame("startPage")).pack(side="left",padx=80,pady=40)
-            tk.Button(self,text="start", bg="#2e7d32", fg="white", width=10, command=lambda app.show_frame("QuizPage")).pack(side="right")
+            tk.Button(self,text="start", bg="#2e7d32", fg="white", width=10, command=lambda:app.show_frame("QuizPage")).pack(side="right", padx=80, pady= 40)
 
+    #-------------------------
+    #QUIZ PAGE
+    #-------------------------
 
+    class QuizPage(tk.Frame):
+        def __init__(self, parent, app):
+            super().__init__(parent, bg="#e6f2e6")
+            self.app = app
 
+            #Progress bar
+            self.progress = ttk.progressbar(self, legth=400, mode='determinate')
+            self.progress.pack(pady=20)
 
+            self.score_label= tk.Label(self, text="", bg="e6f2e6")
+            self.score_label.pack()
+
+            self.question_label=tk.Label(self,text="", font=("Arial", 14),bg="#e6f2e6")
+            self.question_label.pack(pady=20)
+
+            self.selected = tk.StringVar()
+
+            self.options = []
+            for i in range(4):
+                rb = tk.Radiobutton(self, text="", variable=self.selected, value="", font=("Arial",12), bg= "e6f6e6")
+                rb.pack(anchor="w", padx=200)
+                self.options.append(rb)
+
+                tk.Button(self, text="next", bg="2e7d32", fg="white", width=15, command=self.next_question).pack(pady=20)
 root = tk.Tk()
 app = QuizApp(root)
 root.mainloop()
