@@ -151,6 +151,32 @@ class QuizApp:
                 self.options.append(rb)
 
                 tk.Button(self, text="next", bg="2e7d32", fg="white", width=15, command=self.next_question).pack(pady=20)
+
+            self.load_question()
+
+            def load_question(self):
+                q = self.app.question[self.app.q_index]
+
+                self.question_label.config(text=q["question"])
+                self.score_label.config(text=f"Score: {self.app.score} | Question {self.app.q_index + 1}/{len(self.app.questions)}")
+
+                self.selected.set(None)
+
+                for i, option in enumerate(q["options"]):
+                    self.options[i].config(text=option, value=option)
+
+            #Upadate progress bar
+            progress_value= (self.app.q_index/len(self.app.questions)) *100
+            self.progress['value']= progress_value
+
+            def next_question(self):
+                selected = self.selected.get()
+                correct= self.app.questions[self.app.q_index]
+                ["answer"]
+
+
+
+
 root = tk.Tk()
 app = QuizApp(root)
 root.mainloop()
