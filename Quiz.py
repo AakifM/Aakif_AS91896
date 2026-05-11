@@ -174,8 +174,22 @@ class QuizApp:
                 correct= self.app.questions[self.app.q_index]
                 ["answer"]
 
+            if self.selected == 'correct':
+                self.app.score+=1
 
+                self.app.q_index+=1
 
+            if self.app.q_index <len(self.app.questions):
+                self.load_question()
+            else:
+                self.progress['value']=100
+                self.app.show_frame("ResultPage")
+    #---------------------------------
+    #RESULT PAGE
+    #---------------------------------
+
+    class ResultPage(tk.Frame):
+        def __init__(self, parent, app):
 
 root = tk.Tk()
 app = QuizApp(root)
