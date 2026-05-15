@@ -189,7 +189,14 @@ class QuizApp:
     #---------------------------------
 
     class ResultPage(tk.Frame):
-        def __init__(self, parent, app):
+        def __init__ (self, parent, app):
+            super().__init__(parent,bg="#e6f2e6")
+            self.app=app
+
+            self.title = tk.label(self, text="Quiz Complete",font=("Arial", 18, "bold"),bg="e6f2e6")
+            self.title.pack(pady=20)
+            self.score_label = tk.label (self, text="")
+
 
 root = tk.Tk()
 app = QuizApp(root)
