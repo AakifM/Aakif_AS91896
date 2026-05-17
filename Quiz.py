@@ -193,9 +193,16 @@ class QuizApp:
             super().__init__(parent,bg="#e6f2e6")
             self.app=app
 
-            self.title = tk.label(self, text="Quiz Complete",font=("Arial", 18, "bold"),bg="e6f2e6")
+            self.title = tk.label(self, text="Quiz Complete",font=("Arial", 18, "bold"),bg="#e6f2e6")
             self.title.pack(pady=20)
-            self.score_label = tk.label (self, text="")
+
+            self.score_label = tk.label (self, text="", font=("Arial", 14), bg="#e6f2e6")
+            self.score_label.pack(pady=10)
+
+            self.message= tk.Label(self, text="", bg= "#e6f2e6")
+            self.message.pack(pady=10)
+
+            tk.Button(self, text="Play Again", bg="#2e7d32", fg="white")
 
 
 root = tk.Tk()
