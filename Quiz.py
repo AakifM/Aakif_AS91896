@@ -202,7 +202,19 @@ class QuizApp:
             self.message= tk.Label(self, text="", bg= "#e6f2e6")
             self.message.pack(pady=10)
 
-            tk.Button(self, text="Play Again", bg="#2e7d32", fg="white")
+            tk.Button(self, text="Play Again", bg="#2e7d32", fg="white", width=15, command=app.root.quit).pack(pady=10)
+
+            self.bind("<Visibility>", self.update_result)
+
+            def update_rsult(self,event):
+                score = self.app.score
+                total = len(self.app.questions)
+
+            self.score_label.config(text=f"Your Score: {score}/{total}")
+
+            if score == total:
+
+
 
 
 root = tk.Tk()
