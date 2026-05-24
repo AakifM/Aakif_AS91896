@@ -212,8 +212,27 @@ class QuizApp:
 
             self.score_label.config(text=f"Your Score: {score}/{total}")
 
-            if score == total:
+            if score==total:
+                msg="Excellent!"
+            elif score>total/2:
+                msg=("Great Job!")
+            else:
+                msg="Keep Practising"
 
+            self.message.config(text=msg)
+
+            def restart(self):
+                self.app.score = 0
+                self.app.q_index = 0
+                self.app.show_frame("StartPage")
+
+            #------------------------------------
+            # RUN PROGRAM
+            #-----------------------------------
+
+            root= tk.Tk()
+            app = QuizApp(root)
+            root.mainloop()
 
 
 
