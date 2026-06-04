@@ -8,7 +8,7 @@ class QuizApp:
     def __init__(self, root):
         self.root = root
         self.root.title("Extinct Animal Quiz")
-        self.root.geometry("700*450")
+        self.root.geometry("700x450")
         self.root.configure( bg= "#e6f2e6")
 
         #Quia data
@@ -76,7 +76,7 @@ class QuizApp:
             self.frames[F]= frame
             frame.place(relwidth=1, relheight=1)
 
-            self.show_frame("StartPage")
+         self.show_frame("StartPage")
 
             def show_frame(self, page):
                 frame = self.frames[page]
@@ -89,14 +89,14 @@ class QuizApp:
         class StartPage(tk.Frame):
             def __init__(self, parent, app):
                 super().__init__(parent,bg="e6f2e6")
-        tk.Label(self, text="EXTINCT ANIMAL QUIZ")
-        font=("Cormorant Garamond",20,"bold")
-        bg="e6f2e6".pack(pady=10)
+                tk.Label(self, text="EXTINCT ANIMAL QUIZ")
+                font=("Cormorant Garamond",20,"bold")
+                bg="e6f2e6".pack(pady=10)
 
-        tk.Button(self, text="Start Quiz", bg="#2e7d32", fg="white", width=20, height=2, command=lambda: app.show_frame(InstructionPage)).pack(pady=10)
-        tk.Button(self, text="Help/Rules", bg="#2e7d32", fg="white", width=20, height=2).pack(pady=10)
+                tk.Button(self, text="Start Quiz", bg="#2e7d32", fg="white", width=20, height=2, command=lambda: app.show_frame(InstructionPage)).pack(pady=10)
+                tk.Button(self, text="Help/Rules", bg="#2e7d32", fg="white", width=20, height=2).pack(pady=10)
 
-        tk.Label(self, text="Learn about NZ extinct animals", bg="#e6f2e6").pack(pady=20)
+                tk.Label(self, text="Learn about NZ extinct animals", bg="#e6f2e6").pack(pady=20)
 
         #---------------------
         #INSTRUCTION PAGE
@@ -110,18 +110,18 @@ class QuizApp:
                 font=("Cormorant Garamond",18,"bold"),
                 bg="#e6f2e6").pack(pady=20)
 
-            instructions=[
+                instructions=[
                 "Read each question carefully",
                 "Select the correct answer",
                 "Each correct answer= 1 point",
                 "Final score shown at the end"
-            ]
+                ]
 
-        for ins in "instructions":
-            tk.Label(self, text="."+ins, bg="#e6f2e6", font=("Arial",12)).pack(anchor="w", padx=150)
+                for ins in "instructions":
+                    tk.Label(self, text="."+ins, bg="#e6f2e6", font=("Arial",12)).pack(anchor="w", padx=150)
 
-            tk.Button(self,text="Back", bg="#2e7d32", fg="white", width=10, command=lambda:app.show_frame("startPage")).pack(side="left",padx=80,pady=40)
-            tk.Button(self,text="start", bg="#2e7d32", fg="white", width=10, command=lambda:app.show_frame("QuizPage")).pack(side="right", padx=80, pady= 40)
+                    tk.Button(self,text="Back", bg="#2e7d32", fg="white", width=10, command=lambda:app.show_frame("startPage")).pack(side="left",padx=80,pady=40)
+                    tk.Button(self,text="start", bg="#2e7d32", fg="white", width=10, command=lambda:app.show_frame("QuizPage")).pack(side="right", padx=80, pady= 40)
 
     #-------------------------
     #QUIZ PAGE
