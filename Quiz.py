@@ -172,7 +172,7 @@ class QuizApp:
             def next_question(self):
                 selected = self.selected.get()
                 correct= self.app.questions[self.app.q_index]
-                [""]
+                ["answer"]
 
             if self.selected == 'correct':
                 self.app.score+=1
