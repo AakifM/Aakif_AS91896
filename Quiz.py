@@ -70,10 +70,98 @@ class QuizApp:
         self.frames = {}
 
         #Initialize all pages
+        class StartPage(tk.Frame):
+                def __init__(self, parent, app):
+                    super().__init__(parent, bg="#e6f2e6")
 
-        for F in ("StartPage", "InstructionPage", "QuizPage", "ResultPage"):
+                    tk.Label(
+                        self,
+                        text="EXTINCT ANIMAL QUIZ",
+                        font=("Cormorant Garamond", 20, "bold"),
+                        bg="#e6f2e6"
+                    ).pack(pady=20)
+
+                    tk.Button(
+                        self,
+                        text="Start Quiz",
+                        command=lambda: app.show_frame("InstructionPage")
+                    ).pack()
+        class InstructionPage(tk.Frame):
+            def __init__(self, parent, app):
+                super().__init__(parent, bg="#e6f2e6")
+
+                tk.Label(
+                    self,
+                    text="Instructions",
+                    font=("Arial", 18, "bold"),
+                    bg="#e6f2e6"
+                ).pack(pady=20)
+
+                instructions = [
+                    "Read each question carefully",
+                    "Select the correct answer",
+                    "Each correct answer = 1 point",
+                    "Final score shown at the end"
+                ]
+
+                for ins in instructions:
+                    tk.Label(
+                        self,
+                        text="• " + ins,
+                        bg="#e6f2e6",
+                        font=("Arial", 12)
+                    ).pack(anchor="w", padx=100)
+
+                tk.Button(
+                    self,
+                    text="Back",
+                    command=lambda: app.show_frame("StartPage")
+                ).pack(side="left", padx=50, pady=30)
+
+                tk.Button(
+                    self,
+                    text="Start Quiz",
+                    command=lambda: app.show_frame("QuizPage")
+                ).pack(side="right", padx=50, pady=30)
+
+        class QuizPage(tk.Frame):
+            def __init__(self, parent, app):
+                    super().__init__(parent, bg="#e6f2e6")
+
+                    tk.Label(
+                        self,
+                        text="Quiz Page",
+                        font=("Arial", 18, "bold"),
+                        bg="#e6f2e6"
+                    ).pack(pady=20)
+        class ResultPage(tk.Frame):
+            def __init__(self, parent, app):
+                super().__init__(parent, bg="#e6f2e6")
+
+                tk.Label(
+                    self,
+                    text="Quiz Complete!",
+                    font=("Arial", 18, "bold"),
+                    bg="#e6f2e6"
+                ).pack(pady=20)
+
+                self.score_label = tk.Label(
+                    self,
+                    text="Your Score: 0/10",
+                    font=("Arial", 14),
+                    bg="#e6f2e6"
+                )
+                self.score_label.pack(pady=10)
+
+                tk.Button(
+                    self,
+                    text="Play Again",
+                    command=lambda: app.show_frame("StartPage")
+                ).pack(pady=20)
+
+            for F in (StartPage, InstructionPage, QuizPage, ResultPage):
             frame = F(self.container, self)
-            self.frames[F]= frame
+            self.frames[F.__name__] = frame
             frame.place(relwidth=1, relheight=1)
 
         self.show_frame("StartPage")
