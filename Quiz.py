@@ -76,9 +76,9 @@ class QuizApp:
             self.frames[F]= frame
             frame.place(relwidth=1, relheight=1)
 
-         self.show_frame("StartPage")
+        self.show_frame("StartPage")
 
-            def show_frame(self, page):
+        def show_frame(self, page):
                 frame = self.frames[page]
                 frame.tkraise()
 
@@ -210,9 +210,9 @@ class QuizApp:
                 score = self.app.score
                 total = len(self.app.questions)
 
-            self.score_label.config(text=f"Your Score: {score}/{total}")
+            self.score_label.config(text=f"Your Score:{}")
 
-            if score==total:
+            if score == total:
                 msg="Excellent!"
             elif score>total/2:
                 msg=("Great Job!")
