@@ -1,6 +1,5 @@
 import tkinter as tk
-import tkinter
-from dis import Instruction
+from tkinter import ttk
 
 
 #MAIN APP CLASS
@@ -29,7 +28,7 @@ class QuizApp:
 
 
             {"Question": "What was the main resource many large birds in New Zealand went extinct?",
-                "Options": ["Volcanos","human hunting","floods","earth quakes"],
+                "Options": ["Volcanos","Human hunting","floods","earth quakes"],
                 "answer": "Human Hunting" },
 
 
@@ -159,16 +158,15 @@ class QuizApp:
                     command=lambda: app.show_frame("StartPage")
                 ).pack(pady=20)
 
-            for F in (StartPage, InstructionPage, QuizPage, ResultPage):
+        for F in (StartPage, InstructionPage, QuizPage, ResultPage):
             frame = F(self.container, self)
             self.frames[F.__name__] = frame
             frame.place(relwidth=1, relheight=1)
-
-        self.show_frame("StartPage")
+            self.show_frame("StartPage")
 
         def show_frame(self, page):
-                frame = self.frames[page]
-                frame.tkraise()
+            frame = self.frames[page]
+            frame.tkraise()
 
         #---------------------
         #START PAGE
@@ -259,8 +257,10 @@ class QuizApp:
 
             def next_question(self):
                 selected = self.selected.get()
-                correct= self.app.questions[self.app.q_index]
-                ["answer"]
+                correct = self.app.questions[self.app.q_index]["answer"]
+
+                if selected == correct:
+                    self.app.score += 1
 
             if self.selected == 'correct':
                 self.app.score+=1
@@ -294,22 +294,22 @@ class QuizApp:
 
             self.bind("<Visibility>", self.update_result)
 
-            def update_rsult(self,event):
+        def update_result(self, event):
                 score = self.app.score
                 total = len(self.app.questions)
 
-            self.score_label.config(text=f"Your Score:{}")
+                self.score_label.config(text=f"Your Score:{score}/{total}")
 
-            if score == total:
-                msg="Excellent!"
-            elif score>total/2:
-                msg=("Great Job!")
-            else:
-                msg="Keep Practising"
+                if score == total:
+                    msg="Excellent!"
+                elif score>total/2:
+                    msg=("Great Job!")
+                else:
+                    msg="Keep Practising"
 
-            self.message.config(text=msg)
+                self.message.config(text=msg)
 
-            def restart(self):
+        def restart(self):
                 self.app.score = 0
                 self.app.q_index = 0
                 self.app.show_frame("StartPage")
@@ -318,11 +318,27 @@ class QuizApp:
             # RUN PROGRAM
             #-----------------------------------
 
-            root= tk.Tk()
-            app = QuizApp(root)
-            root.mainloop()
+    class ResultPage(tk.Frame):
+        def __init__(self, parent, app):
+            super().__init__(parent, bg="#e6f2e6")
+            self.app = app
 
+            self.bind("<Visibility>", self.update_result)
 
+        def update_result(self, event):
+            score = self.app.score
+            total = len(self.app.questions)
+
+            self.score_label.config(text=f"Your Score: {score}/{total}")
+
+            if score == total:
+                msg = "Excellent!"
+            elif score > total / 2:
+                msg = "Great Job!"
+            else:
+                msg = "Keep Practising"
+
+            self.message.config(text=msg)
 
 root = tk.Tk()
 app = QuizApp(root)
