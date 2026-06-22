@@ -82,50 +82,84 @@ class QuizApp:
 
         frame.tkraise()
 
-        #---------------------
-        #START PAGE
-        #---------------------
+# --------------------------
+# START PAGE
+# --------------------------
 
-        class StartPage(tk.Frame):
-            def __init__(self, parent, app):
-                super().__init__(parent,bg="e6f2e6")
-                tk.Label(self, text="EXTINCT ANIMAL QUIZ")
-                font=("Cormorant Garamond",20,"bold")
-                bg="e6f2e6".pack(pady=10)
+class StartPage(tk.Frame):
+    def __init__(self, parent, app):
+        super().__init__(parent, bg="#e6f2e6")
 
-                tk.Button(self, text="Start Quiz", bg="#2e7d32", fg="white", width=20, height=2, command=lambda: app.show_frame(InstructionPage)).pack(pady=10)
-                tk.Button(self, text="Help/Rules", bg="#2e7d32", fg="white", width=20, height=2).pack(pady=10)
+        tk.Label(
+            self,
+            text="EXTINCT ANIMAL QUIZ",
+                    font=("Arial", 22, "bold"),
+                    bg="#e6f2e6"
+        ).pack(pady=50)
 
-                tk.Label(self, text="Learn about NZ extinct animals", bg="#e6f2e6").pack(pady=20)
+        tk.Button(
+            self,
+            text="Start Quiz",
+            width=20,
+            bg="#2e7d32",
+            fg="white",
+            command=lambda: app.show_frame("InstructionPage")
+        ).pack(pady=10)
 
-        #---------------------
-        #INSTRUCTION PAGE
-        #---------------------
+        tk.Label(
+            self,
+            text="Learn about New Zealand's extinct animals!",
+            bg="#e6f2e6",
+            font=("Arial", 12)
+        ).pack(pady=20)
 
-        class InstructionPage(tk.Frame):
-            def __init__(self, parent,app):
-                super().__init__(parent, bg="#e6f2e6")
+# --------------------------
+# INSTRUCTION PAGE
+# --------------------------
 
-                tk.Label(self, text="INSTRUCTIONS",
-                font=("Cormorant Garamond",18,"bold"),
-                bg="#e6f2e6").pack(pady=20)
+class InstructionPage(tk.Frame):
+    def __init__(self, parent, app):
+        super().__init__(parent, bg="#e6f2e6")
 
-                instructions=[
-                "Read each question carefully",
-                "Select the correct answer",
-                "Each correct answer= 1 point",
-                "Final score shown at the end"
-                ]
+        tk.Label(
+            self,
+            text="Instructions",
+            font=("Arial", 18, "bold"),
+            bg="#e6f2e6"
+        ).pack(pady=20)
 
-                for ins in "instructions":
-                    tk.Label(self, text="."+ins, bg="#e6f2e6", font=("Arial",12)).pack(anchor="w", padx=150)
+        instructions = [
+            "Read each question carefully",
+            "Choose one answer",
+            "Each correct answer earns 1 point",
+            "Your final score is shown at the end"
+        ]
 
-                    tk.Button(self,text="Back", bg="#2e7d32", fg="white", width=10, command=lambda:app.show_frame("startPage")).pack(side="left",padx=80,pady=40)
-                    tk.Button(self,text="start", bg="#2e7d32", fg="white", width=10, command=lambda:app.show_frame("QuizPage")).pack(side="right", padx=80, pady= 40)
+        for ins in instructions:
+            tk.Label(
+                self,
+                text="• " + ins,
+                bg="#e6f2e6",
+                font=("Arial", 12)
+            ).pack(anchor="w", padx=120)
 
-    #-------------------------
-    #QUIZ PAGE
-    #-------------------------
+            tk.Button(
+                self,
+                text="Back",
+                width=12,
+                command=lambda: app.show_frame("StartPage")
+            ).pack(side="left", padx=80, pady=50)
+
+            tk.Button(
+                self,
+                text="Begin",
+                width=12,
+                command=lambda: app.show_frame("QuizPage")
+            ).pack(side="right", padx=80, pady=50)
+
+#-------------------------
+#QUIZ PAGE
+#-------------------------
 
     class QuizPage(tk.Frame):
         def __init__(self, parent, app):
