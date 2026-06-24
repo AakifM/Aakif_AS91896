@@ -161,65 +161,95 @@ class InstructionPage(tk.Frame):
 #QUIZ PAGE
 #-------------------------
 
-    class QuizPage(tk.Frame):
-        def __init__(self, parent, app):
-            super().__init__(parent, bg="#e6f2e6")
-            self.app = app
+class QuizPage(tk.Frame):
+    def __init__(self, parent, app):
+        super().__init__(parent, bg="#e6f2e6")
 
-            #Progress bar
-            self.progress = ttk.progressbar(self, legth=400, mode='determinate')
-            self.progress.pack(pady=20)
+        self.app = app
 
-            self.score_label= tk.Label(self, text="", bg="e6f2e6")
-            self.score_label.pack()
+        self.progress = ttk.Progressbar(
+            self,
+            length=400,
+            mode="determinate"
+        )
+        self.progress.pack(pady=15)
 
-            self.question_label=tk.Label(self,text="", font=("Arial", 14),bg="#e6f2e6")
-            self.question_label.pack(pady=20)
+        self.score_label = tk.Label(
+            self,
+            text="",
+            bg="#e6f2e6"
+        )
+        self.score_label.pack()
 
-            self.selected = tk.StringVar()
+        self.question_label = tk.Label(
+            self,
+            text="",
+            font=("Arial", 14, "bold"),
+            bg="#e6f2e6",
+            wraplength=600
+        )
+        self.question_label.pack(pady=20)
 
-            self.options = []
-            for i in range(4):
-                rb = tk.Radiobutton(self, text="", variable=self.selected, value="", font=("Arial",12), bg= "e6f6e6")
-                rb.pack(anchor="w", padx=200)
-                self.options.append(rb)
+        self.selected = tk.StringVar()
 
-                tk.Button(self, text="next", bg="2e7d32", fg="white", width=15, command=self.next_question).pack(pady=20)
+        self.options = []
 
+        for i in range(4):
+            rb = tk.Radiobutton(
+                self,
+                text="",
+                variable=self.selected,
+                value="",
+                font=("Arial", 12),
+                bg="#e6f2e6"
+            )
+            rb.pack(anchor="w", padx=180)
+            self.options.append(rb)
+
+        tk.Button(
+            self,
+            text="Next",
+            width=15,
+            bg="#2e7d32",
+            fg="white",
+            command=self.next_question
+        ).pack(pady=20)
+
+    def load_question(self):
+        q = self.app.questions[self.app.q_index]
+
+        self.question_label.config(text=q["Question"])
+
+        self.score_label.config(
+            text=f"Score: {self.app.score} | Question {self.app.q_index + 1}/{len(self.app.questions)}"
+        )
+
+        self.selected.set("")
+
+        for i, option in enumerate(q["Options"]):
+            self.options[i].config(
+                text=option,
+                value=option
+            )
+
+        self.progress["value"] = (
+            self.app.q_index / len(self.app.questions)
+        ) * 100
+
+    def next_question(self):
+        selected = self.selected.get()
+
+        if selected == self.app.questions[self.app.q_index]["Answer"]:
+            self.app.score += 1
+
+        self.app.q_index += 1
+
+        if self.app.q_index < len(self.app.questions):
             self.load_question()
+        else:
+            self.progress["value"] = 100
+            self.app.show_frame("ResultPage")
 
-            def load_question(self):
-                q = self.app.question[self.app.q_index]
-
-                self.question_label.config(text=q["question"])
-                self.score_label.config(text=f"Score: {self.app.score} | Question {self.app.q_index + 1}/{len(self.app.questions)}")
-
-                self.selected.set(None)
-
-                for i, option in enumerate(q["options"]):
-                    self.options[i].config(text=option, value=option)
-
-            #Upadate progress bar
-            progress_value= (self.app.q_index/len(self.app.questions)) *100
-            self.progress['value']= progress_value
-
-            def next_question(self):
-                selected = self.selected.get()
-                correct = self.app.questions[self.app.q_index]["answer"]
-
-                if selected == correct:
-                    self.app.score += 1
-
-            if self.selected == 'correct':
-                self.app.score+=1
-
-                self.app.q_index+=1
-
-            if self.app.q_index <len(self.app.questions):
-                self.load_question()
-            else:
-                self.progress['value']=100
-                self.app.show_frame("ResultPage")
     #---------------------------------
     #RESULT PAGE
     #---------------------------------
