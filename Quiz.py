@@ -250,78 +250,78 @@ class QuizPage(tk.Frame):
             self.progress["value"] = 100
             self.app.show_frame("ResultPage")
 
-    #---------------------------------
-    #RESULT PAGE
-    #---------------------------------
 
-    class ResultPage(tk.Frame):
-        def __init__ (self, parent, app):
-            super().__init__(parent,bg="#e6f2e6")
-            self.app=app
+# --------------------------
+# RESULT PAGE
+# --------------------------
 
-            self.title = tk.label(self, text="Quiz Complete",font=("Arial", 18, "bold"),bg="#e6f2e6")
-            self.title.pack(pady=20)
+class ResultPage(tk.Frame):
+    def __init__(self, parent, app):
+        super().__init__(parent, bg="#e6f2e6")
 
-            self.score_label = tk.label (self, text="", font=("Arial", 14), bg="#e6f2e6")
-            self.score_label.pack(pady=10)
+        self.app = app
 
-            self.message= tk.Label(self, text="", bg= "#e6f2e6")
-            self.message.pack(pady=10)
+        tk.Label(
+            self,
+            text="Quiz Complete!",
+            font=("Arial", 20, "bold"),
+            bg="#e6f2e6"
+        ).pack(pady=20)
 
-            tk.Button(self, text="Play Again", bg="#2e7d32", fg="white", width=15, command=app.root.quit).pack(pady=10)
+        self.score_label = tk.Label(
+            self,
+            text="",
+            font=("Arial", 16),
+            bg="#e6f2e6"
+        )
+        self.score_label.pack(pady=10)
 
-            self.bind("<Visibility>", self.update_result)
+        self.message = tk.Label(
+            self,
+            text="",
+            font=("Arial", 14),
+            bg="#e6f2e6"
+        )
+        self.message.pack(pady=10)
 
-        def update_result(self, event):
-                score = self.app.score
-                total = len(self.app.questions)
+        tk.Button(
+            self,
+            text="Play Again",
+            width=15,
+            bg="#2e7d32",
+            fg="white",
+            command=self.restart
+        ).pack(pady=20)
 
-                self.score_label.config(text=f"Your Score:{score}/{total}")
+    def update_result(self):
+        score = self.app.score
+        total = len(self.app.questions)
 
-                if score == total:
-                    msg="Excellent!"
-                elif score>total/2:
-                    msg=("Great Job!")
-                else:
-                    msg="Keep Practising"
+        self.score_label.config(
+            text=f"Your Score: {score}/{total}"
+        )
 
-                self.message.config(text=msg)
+        if score == total:
+            msg = "Excellent!"
+        elif score >= total / 2:
+            msg = "Great Job!"
+        else:
+            msg = "Keep Practising!"
 
-        def restart(self):
-                self.app.score = 0
-                self.app.q_index = 0
-                self.app.show_frame("StartPage")
+        self.message.config(text=msg)
 
-            #------------------------------------
-            # RUN PROGRAM
-            #-----------------------------------
+    def restart(self):
+        self.app.score = 0
+        self.app.q_index = 0
+        self.app.show_frame("StartPage")
 
-    class ResultPage(tk.Frame):
-        def __init__(self, parent, app):
-            super().__init__(parent, bg="#e6f2e6")
-            self.app = app
-
-            self.bind("<Visibility>", self.update_result)
-
-        def update_result(self, event):
-            score = self.app.score
-            total = len(self.app.questions)
-
-            self.score_label.config(text=f"Your Score: {score}/{total}")
-
-            if score == total:
-                msg = "Excellent!"
-            elif score > total / 2:
-                msg = "Great Job!"
-            else:
-                msg = "Keep Practising"
-
-            self.message.config(text=msg)
+# --------------------------
+# RUN PROGRAM
+# --------------------------
 
 root = tk.Tk()
 app = QuizApp(root)
 root.mainloop()
-
 
 
 
